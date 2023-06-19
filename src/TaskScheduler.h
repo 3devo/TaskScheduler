@@ -214,7 +214,7 @@ class Task {
 		inline unsigned long getInterval() { return iInterval; }
 		void setIterations(long aIterations);
 		inline long getIterations() { return iIterations; }
-		inline unsigned long getRunCounter() { return iRunCounter; }
+		//inline unsigned long getRunCounter() { return iRunCounter; }
 		inline void setCallback(void (*aCallback)()) { iCallback = aCallback; }
 		//inline void setOnEnable(bool (*aCallback)()) { iOnEnable = aCallback; }
 		//inline void setOnDisable(void (*aCallback)()) { iOnDisable = aCallback; }
@@ -222,7 +222,7 @@ class Task {
 		inline long getOverrun() { return iOverrun; }
 		inline long getStartDelay() { return iStartDelay; }
 #endif  // _TASK_TIMECRITICAL
-		inline bool isFirstIteration() { return (iRunCounter <= 1); } 
+		//inline bool isFirstIteration() { return (iRunCounter <= 1); } 
 		inline bool isLastIteration() { return (iIterations == 0); }
 #ifdef _TASK_STATUS_REQUEST
 		void waitFor(StatusRequest* aStatusRequest, unsigned long aInterval = 0, long aIterations = 1);
@@ -253,7 +253,7 @@ class Task {
 #endif  // _TASK_TIMECRITICAL
 		volatile int			iIterations;		// number of iterations left. 0 - last iteration. -1 - infinite iterations
 		int					iSetIterations; 		// number of iterations originally requested (for restarts)
-		unsigned int			iRunCounter;		// current number of iteration (starting with 1). Resets on enable. 
+		//unsigned int			iRunCounter;		// current number of iteration (starting with 1). Resets on enable. 
 		void					(*iCallback)();		// pointer to the void callback method
 		//bool					(*iOnEnable)();		// pointer to the bolol OnEnable callback method
 		//void					(*iOnDisable)();	// pointer to the void OnDisable method
@@ -401,7 +401,7 @@ inline void Task::reset() {
 	iPrev = NULL;
 	iNext = NULL;
 	//iScheduler = NULL;
-	iRunCounter = 0;
+	//iRunCounter = 0;
 #ifdef _TASK_TIMECRITICAL
 	iOverrun = 0;
 	iStartDelay = 0;
@@ -446,7 +446,7 @@ inline void Task::setIterations(long aIterations) {
  */
 inline void Task::enable() {
 	//if (iScheduler) { // activation without active scheduler does not make sense
-		iRunCounter = 0;
+		//iRunCounter = 0;
 		/*if ( iOnEnable && !iStatus.inonenable ) {
 			Task *current = iScheduler->iCurrent;
 			iScheduler->iCurrent = this;
@@ -763,7 +763,7 @@ inline bool Scheduler::execute() {
 				if ( m - iCurrent->iPreviousMillis < iCurrent->iDelay ) break;
 
 				if ( iCurrent->iIterations > 0 ) iCurrent->iIterations--;  // do not decrement (-1) being a signal of never-ending task
-				iCurrent->iRunCounter++;
+				//iCurrent->iRunCounter++;
 				iCurrent->iPreviousMillis += iCurrent->iDelay;
 
 #ifdef _TASK_TIMECRITICAL
