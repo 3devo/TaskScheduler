@@ -258,7 +258,7 @@ class Task {
 		//bool					(*iOnEnable)();		// pointer to the bolol OnEnable callback method
 		//void					(*iOnDisable)();	// pointer to the void OnDisable method
 		Task					*iPrev, *iNext;		// pointers to the previous and next tasks in the chain
-		Scheduler				*iScheduler;		// pointer to the current scheduler
+		//Scheduler				*iScheduler;		// pointer to the current scheduler
 #ifdef _TASK_STATUS_REQUEST
 		StatusRequest			*iStatusRequest;	// pointer to the status request task is or was waiting on
 #endif  // _TASK_STATUS_REQUEST
@@ -400,7 +400,7 @@ inline void Task::reset() {
 	iInterval = iDelay = 0;
 	iPrev = NULL;
 	iNext = NULL;
-	iScheduler = NULL;
+	//iScheduler = NULL;
 	iRunCounter = 0;
 #ifdef _TASK_TIMECRITICAL
 	iOverrun = 0;
@@ -445,7 +445,7 @@ inline void Task::setIterations(long aIterations) {
  *  and resets the RunCounter back to zero
  */
 inline void Task::enable() {
-	if (iScheduler) { // activation without active scheduler does not make sense
+	//if (iScheduler) { // activation without active scheduler does not make sense
 		iRunCounter = 0;
 		/*if ( iOnEnable && !iStatus.inonenable ) {
 			Task *current = iScheduler->iCurrent;
@@ -459,7 +459,7 @@ inline void Task::enable() {
 			iStatus.enabled = true;
 		}
 		iPreviousMillis = _TASK_TIME_FUNCTION() - (iDelay = iInterval);
-	}
+	//}
 }
 
 /** Enables the task only if it was not enabled already
@@ -581,7 +581,7 @@ inline void Scheduler::addTask(Task& aTask) {
 	if (isTaskAdded(aTask))
 		return;
 
-	aTask.iScheduler = this;
+	//aTask.iScheduler = this;
 // First task situation: 
 	if (iFirst == NULL) {
 		iFirst = &aTask;
