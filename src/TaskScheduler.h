@@ -251,9 +251,9 @@ class Task {
 		volatile long			iOverrun; 			// negative if task is "catching up" to it's schedule (next invocation time is already in the past)
 		volatile long			iStartDelay;		// actual execution of the task's callback method was delayed by this number of millis
 #endif  // _TASK_TIMECRITICAL
-		volatile long			iIterations;		// number of iterations left. 0 - last iteration. -1 - infinite iterations
-		long					iSetIterations; 		// number of iterations originally requested (for restarts)
-		unsigned long			iRunCounter;		// current number of iteration (starting with 1). Resets on enable. 
+		volatile int			iIterations;		// number of iterations left. 0 - last iteration. -1 - infinite iterations
+		int					iSetIterations; 		// number of iterations originally requested (for restarts)
+		unsigned int			iRunCounter;		// current number of iteration (starting with 1). Resets on enable. 
 		void					(*iCallback)();		// pointer to the void callback method
 		//bool					(*iOnEnable)();		// pointer to the bolol OnEnable callback method
 		//void					(*iOnDisable)();	// pointer to the void OnDisable method
